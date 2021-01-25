@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import InterviewRow from './InterviewRow';
 import {Link} from 'react-router-dom';
+import ShowUser from './ShowUser';
+import './css/Interview.css';
 const Interviews = () => {
 
     const [state,setState] = useState({
@@ -35,8 +37,8 @@ const Interviews = () => {
     else{
     return (
         <React.Fragment>
-        <h1>Interviews</h1>
-        <table className="table">
+        <h1 className = "text-center">Interviews</h1>
+        <table className="table table-bordered">
             <thead className="thead-dark">
                 <tr>
                     <th scope="col">Id</th>
@@ -52,7 +54,27 @@ const Interviews = () => {
                 ))}
             </tbody>
         </table>
+
         {<Link to = {{pathname: '/interviews/new', state: state.users }} className = "btn btn-dark" >Schedule New Interview</Link>}
+
+        <br /><br/>
+        <hr className = "fancyLine5"/>
+        <h1 className = "text-center">Users</h1>
+        <table className="table table-bordered">
+            <thead className="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody className = "autoScroll">
+                {state.users.map(user => (
+                    < ShowUser key = {user.id} user = {user} />
+                ))}
+            </tbody>
+        </table>
         </React.Fragment>
     );}
 }
