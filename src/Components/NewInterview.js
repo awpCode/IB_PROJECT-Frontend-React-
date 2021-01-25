@@ -2,23 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from "react-router-dom";
 import MultiSelect from "react-multi-select-component";
-const NewInterview = () => {
+const NewInterview = (props) => {
     const [starttime, setStarttime] = useState('');
     const [endtime, setEndTime] = useState('');
     const [userIds, setUserIds] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([...props.location.state]);
     const [isAdded, setIsAdded] = useState(false);
     const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
-        getUsers();
-    },[])
-
-    const getUsers = async () => {
-        const res = await axios.get('http://localhost:3001/users');
-        setUsers(res.data);
-    };
-
+  
     const postInterview = e => {
         e.preventDefault();
         submitInterview();
@@ -32,9 +24,7 @@ const NewInterview = () => {
             setErrors([]);
         }
         catch(err){
-            //console.log(err.response.data.error);
             setErrors(err.response.data.error);
-            console.log(errors);
         }
         
     };
@@ -162,3 +152,13 @@ axios.post('http://localhost:3001/interviews',{
 
 
 */
+
+  /*(() => {
+        getUsers();
+    },[])
+
+    const getUsers = async () => {
+        const res = await axios.get('http://localhost:3001/users');
+        setUsers(res.data);
+    };
+    */

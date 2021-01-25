@@ -1,13 +1,13 @@
 import React from 'react';
-
-const InterviewRow = ({interview}) => {
+import {Link} from 'react-router-dom';
+const InterviewRow = ({interview, users}) => {
     return (
         <tr>
             <td>{interview.id}</td>
             <td>{interview.users.length}</td>
             <td>{interview.starttime}</td>
             <td>{interview.endtime}</td>
-            <td>Pending</td>
+            <td>{<Link to = {{pathname: `/interviews/${interview.id}/edit`, state: {interview, users} }}  className = "badge badge-dark">Edit</Link>} </td>
         </tr>
     );
 }
